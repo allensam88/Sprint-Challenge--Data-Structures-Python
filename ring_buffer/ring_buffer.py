@@ -4,25 +4,37 @@ from doubly_linked_list import DoublyLinkedList
 class RingBuffer:
 	def __init__(self, capacity):
 		self.capacity = capacity
-		self.current_head = None
+		self.current = None
 		self.storage = DoublyLinkedList()
 
 	def append(self, item):
-		# ---deprecated---
 		# empty, add item to head
+		# ---deprecated---
+		# Note: no longer needed since redundant with storage length < buffer capacity condition
 		# if self.storage.length == 0:
 		# 	self.storage.add_to_head(item)
-		# 	self.current_head = self.storage.head
+		# 	self.current = self.storage.head
+		
+		# cursor that indicates the current item on the ring
+		cursor = self.current
 
-		# if full, remove from tail, then add to head
+		# if full...
 		if self.storage.length == self.capacity:
-			self.current.value = item
-			self.current = self.current.next
-			self.storage.tail = self.current
+			# set the cursor value to new item
+			cursor.value = item
+			# if the cursor has reached the end
+			if cursor is self.storage.tail:
+				# then reset cursor to the head
+				self.current = self.storage.head
+			else:	
+				# otherwise move current cursor to the cursor's next node
+				self.current = cursor.next
 
-		# if empty or space remaining, add to tail, reset current
+		# if empty or space remaining...
 		elif self.storage.length < self.capacity:
+			# add item to the end
 			self.storage.add_to_tail(item)
+			# set current cursor to the head
 			self.current = self.storage.head
 
 	def get(self):
