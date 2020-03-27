@@ -11,13 +11,11 @@ class RingBuffer:
 		# empty, add item to head
 		if self.storage.length == 0:
 			self.storage.add_to_head(item)
-			self.current = item
 
 		# full, remove from tail, then add to head
 		elif self.storage.length == self.capacity:
 			self.storage.remove_from_head()
-			self.storage.add_to_tail(item)
-			self.current = item
+			self.storage.add_to_head(item)
 
 		# space remaining, add to tail
 		elif self.storage.length < self.capacity:
