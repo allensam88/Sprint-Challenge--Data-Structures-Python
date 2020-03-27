@@ -2,21 +2,37 @@ from doubly_linked_list import DoublyLinkedList
 
 
 class RingBuffer:
-    def __init__(self, capacity):
-        self.capacity = capacity
-        self.current = None
-        self.storage = DoublyLinkedList()
+	def __init__(self, capacity):
+		self.capacity = capacity
+		self.current = None
+		self.storage = DoublyLinkedList()
 
-    def append(self, item):
-        pass
+	def append(self, item):
+		if self.storage.length == 0:
+			self.storage.add_to_head(item)
 
-    def get(self):
-        # Note:  This is the only [] allowed
-        list_buffer_contents = []
+		elif self.storage.length > 0:
+			self.storage.add_to_tail(item)
 
-        # TODO: Your code here
+	def get(self):
+		# Note:  This is the only [] allowed
+		list_buffer_contents = []
 
-        return list_buffer_contents
+		if self.storage.length == 0:
+			return None
+
+		while self.storage.length > 0:
+			node = self.storage.remove_from_head()
+			list_buffer_contents.append(node)
+
+		return list_buffer_contents
+
+buffer = RingBuffer(5)
+buffer.append('a')
+buffer.append('b')
+buffer.append('c')
+buffer.append('d')
+print(buffer.get())
 
 # ----------------Stretch Goal-------------------
 
