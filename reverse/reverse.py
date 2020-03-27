@@ -54,6 +54,11 @@ class LinkedList:
 
 	def reverse_list(self, node, prev):
 		# You must use recursion for this solution
+		
+		# If no head, then empty list, return nothing
+		if self.head is None:
+			return None
+		
 		# Base case: stop when next node pointer is null, then you've reached the tail end
 		if node.next_node is None:
 			# set the tail as the new head and...
