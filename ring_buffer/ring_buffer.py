@@ -28,14 +28,14 @@ class RingBuffer:
 		# Note:  This is the only [] allowed
 		list_buffer_contents = []
 
-		current_node = self.current
+		current_node = self.storage.head
 
 		if self.storage.length == 0:
 			return None
 
 		while current_node:
-			list_buffer_contents.append(current_node)
-			current_node = self.storage.head
+			list_buffer_contents.append(current_node.value)
+			current_node = current_node.next
 
 		return list_buffer_contents
 
